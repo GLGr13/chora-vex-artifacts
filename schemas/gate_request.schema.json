@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/GLGr13/chora-vex-artifacts/schemas/gate_request.schema.json",
+  "title": "CHORA Gate Request",
+  "type": "object",
+  "required": [
+    "request_id",
+    "timestamp_utc",
+    "subject",
+    "action_class",
+    "payload_sha256",
+    "policy_context"
+  ],
+  "properties": {
+    "request_id": {"type": "string"},
+    "timestamp_utc": {"type": "string", "format": "date-time"},
+    "subject": {"type": "string"},
+    "action_class": {"type": "string"},
+    "payload_sha256": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"},
+    "policy_context": {"type": "string"},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "capabilities": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "dra": {"type": ["object", "null"]},
+    "mcs_report": {"type": ["object", "null"]}
+  },
+  "additionalProperties": true
+}

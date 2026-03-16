@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/GLGr13/chora-vex-artifacts/schemas/capsule.schema.json",
+  "title": "CHORA Evidence Capsule",
+  "type": "object",
+  "required": ["capsule_id", "request_id", "decision", "verification"],
+  "properties": {
+    "capsule_id": {"type": "string"},
+    "request_id": {"type": "string"},
+    "decision": {"type": "object"},
+    "verification": {"type": "object"},
+    "mcs_summary": {"type": ["object", "null"]},
+    "merkle": {"type": ["object", "null"]},
+    "signature_envelope": {"type": ["object", "null"]}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,13 @@
+{
+  "capsule_id": "capsule-demo-allow",
+  "request_id": "req-demo-001",
+  "decision": {
+    "decision": "ALLOW",
+    "reasons": ["default reference implementation path"]
+  },
+  "verification": {
+    "canonicalization": "jcs-planned",
+    "signature_verified": false,
+    "merkle_verified": false
+  }
+}

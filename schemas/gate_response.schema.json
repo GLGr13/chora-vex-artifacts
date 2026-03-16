@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/GLGr13/chora-vex-artifacts/schemas/gate_response.schema.json",
+  "title": "CHORA Gate Response",
+  "type": "object",
+  "required": [
+    "decision",
+    "decision_id",
+    "request_id",
+    "timestamp_utc",
+    "reasons"
+  ],
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["ALLOW", "HALT", "ESCALATE"]
+    },
+    "decision_id": {"type": "string"},
+    "request_id": {"type": "string"},
+    "timestamp_utc": {"type": "string", "format": "date-time"},
+    "reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "capsule_id": {"type": ["string", "null"]},
+    "merkle_root": {"type": ["string", "null"]},
+    "signature": {"type": ["string", "null"]},
+    "public_key_id": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}
