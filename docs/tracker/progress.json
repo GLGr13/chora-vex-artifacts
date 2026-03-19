@@ -1,0 +1,258 @@
+{
+  "last_updated": "2026-03-19T07:12:36Z",
+  "phases": {
+    "phase3_mcs_sensor_channel": {
+      "status": "DONE_INTERNAL",
+      "done": [
+        "MCS_ESCALATE_BINDING",
+        "structural escalation logic",
+        "MCS binding affects gate outcome"
+      ],
+      "missing": [
+        "explicit MCS artifact/schema",
+        "shadow vs binding mode switch",
+        "external visibility of mode state",
+        "stable sensor result format",
+        "formal MCS decision semantics",
+        "reproducible MCS evaluation interface"
+      ]
+    },
+    "phase4_coordination_ledger": {
+      "status": "PARTIAL",
+      "done": [
+        "linked hash chain exists",
+        "prior state hash chaining works",
+        "ledger entries can be appended"
+      ],
+      "missing": [
+        "append-only enforcement guarantee",
+        "replay verification command/script",
+        "continuity verification across full chain",
+        "chain audit command",
+        "query interface",
+        "event retrieval by event_id",
+        "deterministic export format",
+        "ledger integrity recovery procedure"
+      ]
+    },
+    "phase5_ems": {
+      "status": "DONE_CORE",
+      "done": [
+        "EMS stub exists",
+        "EMS resolution flow exists",
+        "continuation authorization exists",
+        "signed token generation exists",
+        "signature verification exists",
+        "runtime enforcement exists"
+      ],
+      "missing": [
+        "EMS to execution audit linkage",
+        "EMS resolution to execution reference binding",
+        "optional EMS introspection endpoint",
+        "supervision trail queryability",
+        "deterministic record of which execution consumed which EMS resolution"
+      ]
+    },
+    "phase6_drift_sensors": {
+      "status": "NOT_STARTED",
+      "done": [],
+      "missing": [
+        "decision distribution drift",
+        "nonce violation rate",
+        "expired token attempts",
+        "unusual deny spike detection",
+        "escalation distribution drift",
+        "execution anomaly rate"
+      ]
+    },
+    "phase7_governance_metrics": {
+      "status": "NOT_STARTED",
+      "done": [],
+      "missing": [
+        "allow deny ratio",
+        "escalation frequency",
+        "EMS resolution latency",
+        "execution reliability",
+        "token expiry failure rate",
+        "nonce mismatch failure rate",
+        "replay attempt count",
+        "drift trends",
+        "authorization to execution latency",
+        "full custody coverage rate"
+      ]
+    }
+  },
+  "tracks": {
+    "runtime_contract_freeze": {
+      "status": "PARTIAL",
+      "done": [
+        "/gate endpoint exists",
+        "/execute endpoint exists",
+        "token schema exists",
+        "signed continuation token exists",
+        "runtime enforcement behavior exists"
+      ],
+      "missing": [
+        "formal API spec for /gate",
+        "formal API spec for /execute",
+        "formal request/response examples",
+        "explicit field definitions and types",
+        "error code catalog and meanings",
+        "versioned runtime contract (v0.3.x)",
+        "compatibility rule for future changes",
+        "frozen canonical docs for external consumers"
+      ]
+    },
+    "execution_layer": {
+      "status": "PARTIAL_CRITICAL",
+      "done": [
+        "/execute endpoint exists",
+        "EXECUTED / DENIED behavior works",
+        "nonce validation works",
+        "valid token allows execution",
+        "wrong nonce blocks execution",
+        "expired token blocks execution",
+        "local and public /execute verified"
+      ],
+      "missing": [
+        "execution event schema",
+        "append-only execution log",
+        "token to execution binding (hash and metadata)",
+        "nonce registry persistence",
+        "replay prevention beyond transient token check",
+        "execution evidence artifact",
+        "execution event ID",
+        "execution to ledger linkage",
+        "execution to EMS linkage",
+        "execution to capsule linkage",
+        "deterministic execution record format",
+        "execution recovery verification script"
+      ]
+    },
+    "execution_semantics_completion": {
+      "status": "NOT_STARTED",
+      "done": [],
+      "missing": [
+        "Define execution event schema",
+        "Implement append-only execution log",
+        "Bind token to execution (hash and metadata)",
+        "Persist nonce registry",
+        "Generate execution evidence artifact",
+        "Link execution event to ledger entry",
+        "Link execution event to EMS resolution",
+        "Add replay check against persistent nonce store",
+        "Add execution record verification command",
+        "Add execution artifact export format"
+      ]
+    },
+    "recovery_validation": {
+      "status": "PARTIAL",
+      "done": [
+        "rescue pack exists",
+        "rebuild integrity process exists",
+        "end to end integrity was manually validated"
+      ],
+      "missing": [
+        "one-command recovery validation script",
+        "one-command full integrity script",
+        "signed rescue pack manifest",
+        "locked recovery checklist",
+        "restore verify relock procedure",
+        "canonical backup naming/versioning rule",
+        "post-restore public endpoint validation checklist"
+      ]
+    },
+    "public_surface_hardening": {
+      "status": "PARTIAL",
+      "done": [
+        "public /gate exists",
+        "public /execute exists",
+        "basic deny behavior works",
+        "public execution path verified"
+      ],
+      "missing": [
+        "root endpoint behavior decision",
+        "health endpoint",
+        "robots/probe handling policy",
+        "basic abuse/probe observation policy",
+        "explicit public API usage examples",
+        "public compatibility notice",
+        "external client onboarding spec"
+      ]
+    },
+    "full_lock_closure": {
+      "status": "NOT_STARTED",
+      "done": [],
+      "missing": [
+        "runtime contract complete",
+        "phase4 complete",
+        "phase5 custody linkage complete",
+        "execution semantics completion track complete",
+        "recovery validation complete",
+        "public operational validation complete",
+        "canonical runtime spec frozen",
+        "canonical recovery pack frozen",
+        "canonical integrity script frozen",
+        "all core artifacts reproducible after rebuild"
+      ]
+    }
+  },
+  "next_locked_step": {
+    "name": "Execution Semantics Completion Track",
+    "required": [
+      "Define execution event schema",
+      "Implement append-only execution log",
+      "Bind token to execution (hash and metadata)",
+      "Persist nonce registry",
+      "Generate execution evidence artifact",
+      "Link execution event to ledger entry",
+      "Link execution event to EMS resolution",
+      "Add replay check against persistent nonce store",
+      "Add execution record verification command",
+      "Add execution artifact export format"
+    ]
+  },
+  "canonical_roadmap": [
+    "Phase 3 — MCS Sensor Channel",
+    "Phase 4 — Coordination Ledger",
+    "Phase 5 — EMS",
+    "Phase 6 — Drift Sensors",
+    "Phase 7 — Governance Metrics"
+  ],
+  "system_invariant": [
+    "Proposal",
+    "Validation",
+    "Authorization",
+    "Execution",
+    "Evidence"
+  ],
+  "no_execution_without": [
+    "valid token",
+    "valid nonce",
+    "verified signature"
+  ],
+  "no_recoverable_continuation_without": [
+    "EMS resolution",
+    "attributable token",
+    "auditable execution record"
+  ],
+  "lock_rules": [
+    "Do NOT start metrics before execution semantics are complete",
+    "Drift sensors must begin in shadow mode",
+    "Ledger must become append-only before scaling",
+    "Runtime contract must freeze before declaring full lock",
+    "Recovery must be reproducible before calling the system concluded"
+  ],
+  "completion_rule": [
+    "reproducible",
+    "observable",
+    "cryptographically attributable"
+  ],
+  "full_lock_rule": [
+    "runtime contract is frozen",
+    "execution semantics are complete",
+    "custody chain is end-to-end",
+    "recovery is deterministic",
+    "public verification is stable"
+  ]
+}
