@@ -1,1 +1,1 @@
-{"type":"module"}
+{"type":"module","dependencies":{"canonicalize":"^2.1.0"}}
