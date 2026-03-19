@@ -1,93 +1,82 @@
-# CHORA
+# CHORA — External Continuation Authority
 
-**External Continuation Authority for Governed AI Execution**
+CHORA is a control-plane system that enforces **external authorization over execution**.
 
-CHORA is an open specification and reference implementation for external continuation authority, structural reasoning discipline, and verifiable governance artifacts.
+It separates:
+- Proposal (reasoning / model output)
+- Authorization (CHORA Gate decision)
+- Execution (allowed continuation)
 
-In CHORA, cognition may propose, but continuation authority is external and binding. The runtime is designed so that authorization is produced in a separate control plane, recorded as a verifiable decision artifact, and made available for downstream execution and audit.
+No system is allowed to continue without an explicit, verifiable decision.
 
-## Current public state
+## System Model
 
-- Canonical architecture: **v220**
-- Public Gate: **live on VPS**
-- Public verification surface: **Merkle v0.3**
-- Phase 3 MCS: **shadow mode completed**
-- Replay harness: **locked**
-- Positioning: **open spec + reference implementation**
+Proposal → CHORA Gate → Execution
+                 ↓
+           Evidence Capsule
 
-## What CHORA is
+- Systems propose actions
+- CHORA Gate evaluates structural validity and risk
+- Gate returns:
+  - ALLOW
+  - HALT
+  - ESCALATE
+- A cryptographic Evidence Capsule is emitted for every decision
 
-- A control-plane governance primitive for AI and agent execution
-- An external continuation authority that emits `ALLOW`, `HALT`, or `ESCALATE`
-- A structured path from proposal -> validation -> authorization -> custody
-- A system for producing verifiable evidence capsules and replayable artifacts
+## Core Principle
 
-## What CHORA is not
+No continuation without authorization  
+No decision without custody
 
-- Not a claim of perfect reasoning
-- Not a hidden model-side heuristic loop
-- Not merely advisory governance or post-hoc logging
-- Not a substitute for execution attestation, custody, or downstream safety engineering
+## Repository Role
 
-## Canonical architecture
+This repository is not the source of truth.
 
-```text
-Proposal Layer
-    -> Validation Layer (Sensors + MCS)
-    -> Authority Layer (CHORA Gate)
-    -> Supervisory Layer (EMS, future binding phase)
-    -> Custody Layer
-    -> Observability Layer
-```
+It is a projection of a live CHORA runtime:
 
-## Design laws
+- Runtime (VPS) = authoritative system
+- Repository (GitHub) = public evidence surface
 
-- No continuation without authorization
-- No recovery without escalation
-- No decision without custody
+All contents are exported from the runtime via a deterministic sync process.
 
-## Repository layout
+## Artifacts
 
-```text
-/docs        Public architecture, specifications, guides
-/schemas     Machine-readable contracts
-/src/chora   Reference implementation
-/examples    Minimal example requests and specimen outputs
-/tests       Runtime and verification tests
-/scripts     Local tooling for dev, release, and verification
-```
+All verification artifacts are located under:
 
-## Specs to read first
+/artifacts
 
-- [`docs/overview.md`](docs/overview.md)
-- [`docs/architecture/v220-canonical-architecture.md`](docs/architecture/v220-canonical-architecture.md)
-- [`docs/architecture/external-continuation-authority.md`](docs/architecture/external-continuation-authority.md)
-- [`docs/specs/gate-runtime-spec-v0.3.md`](docs/specs/gate-runtime-spec-v0.3.md)
-- [`docs/specs/evidence-capsule-spec-v0.3.md`](docs/specs/evidence-capsule-spec-v0.3.md)
-- [`docs/specs/mcs-checklist-spec-v0.1.md`](docs/specs/mcs-checklist-spec-v0.1.md)
-- [`docs/specs/dra-schema-v220.md`](docs/specs/dra-schema-v220.md)
+### Specimen Capsules
+artifacts/specimen-capsules/
 
-## Quickstart
+### Reference Bundles
+artifacts/reference-bundles/
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn chora.api.app:app --reload
-```
+### Public Keys
+artifacts/keys/
 
-Then open `/health` and POST a request to `/gate`.
+## Verification
+
+A CHORA capsule can be independently verified using:
+
+- Canonical serialization (RFC 8785 / JCS)
+- Signature verification (Ed25519)
+- Public key from /artifacts/keys
+
+## Sync Mechanism
+
+scripts/sync_runtime_to_repo.sh
+
+This script:
+- exports runtime docs and tracker state
+- publishes artifacts (capsules, bundles, keys)
+- commits only when changes occur
 
 ## Status
 
-This repository is intentionally structured as a **public shell first**:
+- Live runtime deployed
+- Evidence capsules actively emitted
+- Repository aligned with runtime
 
-1. Publish the architecture
-2. Freeze the runtime contract
-3. Publish schemas
-4. Ship a minimal reference implementation
-5. Add specimen capsules and golden verification vectors
+## Final Note
 
-## License
-
-See [`LICENSE`](LICENSE).
+This repository represents a live control-plane system exporting verifiable governance artifacts.
