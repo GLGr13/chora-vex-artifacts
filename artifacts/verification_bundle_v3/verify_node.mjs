@@ -1,21 +1,18 @@
 import fs from "fs";
 import crypto from "crypto";
+import canonicalize from "canonicalize";
 
 const token = JSON.parse(fs.readFileSync("token.json", "utf8"));
-const payload = token.payload;
-const signature = Buffer.from(token.signature, "hex");
+const pubPem = fs.readFileSync("public_key_token.pem", "utf8");
 
-const canonical = JSON.stringify(
-  Object.keys(payload).sort().reduce((o, k) => (o[k] = payload[k], o), {}),
-);
+const payloadBytes = Buffer.from(canonicalize(token.payload), "utf8");
+const sig = Buffer.from(token.signature, "hex");
 
-const pubKey = crypto.createPublicKey(fs.readFileSync("public_key_token.pem"));
+const ok = crypto.verify(null, payloadBytes, pubPem, sig);
 
-const ok = crypto.verify(
-  null,
-  Buffer.from(canonical, "utf8"),
-  pubKey,
-  signature
-);
+if (!ok) {
+  console.error("NODE: SIGNATURE INVALID");
+  process.exit(1);
+}
 
-console.log(ok ? "NODE: SIGNATURE VALID" : "NODE: SIGNATURE INVALID");
+console.log("NODE: SIGNATURE VALID");
