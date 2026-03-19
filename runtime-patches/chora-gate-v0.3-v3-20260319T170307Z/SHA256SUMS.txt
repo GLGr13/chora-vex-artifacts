@@ -1,0 +1,5 @@
+a1ed031d7b1f2ece8d02cd9993197ad2f840b2bb5e60f3031b89f0d4036a1272  /root/chora-vex-artifacts/runtime-patches/chora-gate-v0.3-v3-20260319T170307Z/app.py
+276b0999d7e0dc8ec5b9d13d019f32f4399441b477165b3675f28827df5e0fcf  /root/chora-vex-artifacts/runtime-patches/chora-gate-v0.3-v3-20260319T170307Z/enforce_continuation.py
+3f3c8984189f95130a698b107b01e8d8b5f3b62c391732b0386a240483259a56  /root/chora-vex-artifacts/runtime-patches/chora-gate-v0.3-v3-20260319T170307Z/env.snapshot
+57f01fb31b7ae9aea1052b36c0a7a39f4226cea908be4f31c25e2825f9239159  /root/chora-vex-artifacts/runtime-patches/chora-gate-v0.3-v3-20260319T170307Z/generate_signed_token.py
+abbaf6c724bef26d01a8f5688732b4282a6f37a1068cef7d500f310f9be43db9  /root/chora-vex-artifacts/runtime-patches/chora-gate-v0.3-v3-20260319T170307Z/token_763331c3-3b82-485d-b449-0f6f033a5203.json
