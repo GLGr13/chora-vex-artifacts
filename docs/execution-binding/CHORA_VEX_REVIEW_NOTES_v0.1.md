@@ -1,4 +1,4 @@
-# CHORA × VEX Review Notes v0.1
+# CHORA x VEX Review Notes v0.1
 
 Status: Draft
 Date: 2026-03-20
@@ -17,7 +17,7 @@ Date: 2026-03-20
 
 - Execution binding layer
 - Runtime enforcement interface
-- Token → execution dependency
+- Token -> execution dependency
 
 ---
 

@@ -1,4 +1,4 @@
-# CHORA × VEX Full Run Simulation v0.1
+# CHORA x VEX Full Run Simulation v0.1
 
 Status: Draft
 Date: 2026-03-20

@@ -1,4 +1,4 @@
-# CHORA × VEX Execution Binding Contract v0.1
+# CHORA x VEX Execution Binding Contract v0.1
 
 Status: Draft  
 Date: 2026-03-20  
@@ -16,7 +16,7 @@ Execution becomes contingent on a valid, verified, and context-bound token.
 ## 2. Invariant
 
 No valid signed continuation artifact  
-→ No execution allowed  
+-> No execution allowed  
 
 ---
 
@@ -64,7 +64,7 @@ Execution MUST NOT begin without:
 
 ### 4.4 Fail-closed behavior
 
-Any mismatch → execution denied
+Any mismatch -> execution denied
 
 ---
 
@@ -92,11 +92,11 @@ Invalid if:
 
 ## 5. Execution model
 
-Token ≠ execution permission  
+Token != execution permission  
 
 Execution permission is granted only after:
 
-verification → capability issuance  
+verification -> capability issuance  
 
 ---
 
@@ -130,16 +130,16 @@ Minimum:
 - aid  
 - identity_type  
 
-Mismatch → deny
+Mismatch -> deny
 
 ---
 
 ## 9. Non-authorizing outcomes
 
-- HALT → no token  
-- ESCALATE → no token  
+- HALT -> no token  
+- ESCALATE -> no token  
 
-Only ALLOW → token issuance
+Only ALLOW -> token issuance
 
 ---
 

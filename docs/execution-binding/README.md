@@ -1,4 +1,4 @@
-# CHORA × VEX — Execution Binding (v0.1)
+# CHORA x VEX - Execution Binding (v0.1)
 
 Status: Draft (Alignment Review)  
 Date: 2026-03-20  
@@ -7,9 +7,9 @@ Date: 2026-03-20
 
 ## Overview
 
-This package introduces the next step in CHORA × VEX alignment:
+This package introduces the next step in CHORA x VEX alignment:
 
-→ Making execution cryptographically contingent on CHORA authorization
+-> Making execution cryptographically contingent on CHORA authorization
 
 ---
 
@@ -35,7 +35,7 @@ This package introduces the next step in CHORA × VEX alignment:
 ## Core invariant
 
 No valid signed continuation artifact  
-→ No execution allowed  
+-> No execution allowed  
 
 ---
 
@@ -63,7 +63,7 @@ Now:
 
 Define the minimal, non-bypassable layer between:
 
-CHORA authorization → VEX execution
+CHORA authorization -> VEX execution
 
 ---
 

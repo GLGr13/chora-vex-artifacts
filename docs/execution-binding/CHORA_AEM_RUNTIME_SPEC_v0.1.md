@@ -13,7 +13,7 @@ Define runtime enforcement interface for execution binding.
 
 ## 2. Flow
 
-Request → Token → Verify → Capability → Execute
+Request -> Token -> Verify -> Capability -> Execute
 
 ---
 
