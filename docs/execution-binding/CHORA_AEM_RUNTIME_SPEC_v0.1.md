@@ -1,4 +1,4 @@
-# CHORA AEM Runtime Enforcement Spec v0.1
+# CHORA AEM Runtime Enforcement Spec v0.2
 
 Status: Draft
 Date: 2026-03-20
@@ -7,17 +7,42 @@ Date: 2026-03-20
 
 ## 1. Purpose
 
-Define runtime enforcement interface for execution binding.
+Define runtime enforcement for direct identity-bound, proof-bound execution binding.
 
 ---
 
 ## 2. Flow
 
-Request -> Token -> Verify -> Capability -> Execute
+Attested Intent
+-> CHORA decision
+-> Signed continuation token
+-> Local AEM verification
+-> Capability grant
+-> Execution
 
 ---
 
-## 3. API
+## 3. Verification order
+
+The AEM MUST verify, in order:
+
+1. token signature
+2. expiry / nonce
+3. aid match
+4. local hardware identity
+5. PCR binding (High Assurance)
+6. request_sha256
+7. intent_hash
+8. circuit_id
+9. action_class
+10. policy_context_hash
+11. requested capability scope
+
+Any failure -> EXECUTION_DENIED
+
+---
+
+## 4. API
 
 POST /verify-and-authorize
 
@@ -25,18 +50,30 @@ Input:
 
 {
   "token": {},
-  "runtime_context": {}
+  "runtime_context": {
+    "aid": "",
+    "request_sha256": "",
+    "intent_hash": "",
+    "circuit_id": "",
+    "action_class": "",
+    "policy_context_hash": "",
+    "nonce": "",
+    "requested_capabilities": []
+  }
 }
 
 ---
 
-## 4. Response
+## 5. Response
 
 SUCCESS:
 
 {
   "status": "EXECUTION_PERMITTED",
-  "capability": {}
+  "capability_grant": {
+    "grant_id": "",
+    "capabilities": []
+  }
 }
 
 FAIL:
@@ -48,7 +85,7 @@ FAIL:
 
 ---
 
-## 5. Enforcement rule
+## 6. Enforcement rule
 
 Execution MUST NOT start unless:
 
@@ -56,52 +93,25 @@ status == EXECUTION_PERMITTED
 
 ---
 
-## 6. Capability
+## 7. Capability enforcement
 
-- short-lived
-- internal
-- non-exported
+The capability grant MUST authorize only the specific operations permitted for this token.
 
----
-
-## 7. Mandatory hook
-
-Must run before:
-
-- network
-- file
-- tool
-- execution
+Runtime enforcement SHOULD be syscall-level or equivalent boundary-level enforcement.
 
 ---
 
-## 8. Non-bypassability
-
-Forbidden:
-
-- async validation
-- post-execution checks
-
----
-
-## 9. Reference pattern
-
-auth = verify(token, ctx)
-
-if auth != "EXECUTION_PERMITTED":
-    deny()
-
-execute()
-
----
-
-## 10. Profiles
+## 8. Profiles
 
 DEV:
 - local verification
 
 CANONICAL:
-- full binding
+- direct aid binding
+- intent_hash + circuit_id verification
+- capability grant enforcement
 
 HIGH:
-- hardware + ledger
+- PCR verification
+- silicon-root identity verification
+- syscall-level enforcement

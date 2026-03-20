@@ -1,7 +1,7 @@
-# CHORA x VEX - Execution Binding (v0.1)
+# CHORA x VEX - Execution Binding (v0.2)
 
-Status: Draft (Alignment Review)  
-Date: 2026-03-20  
+Status: Draft (Alignment Review)
+Date: 2026-03-20
 
 ---
 
@@ -9,7 +9,7 @@ Date: 2026-03-20
 
 This package introduces the next step in CHORA x VEX alignment:
 
--> Making execution cryptographically contingent on CHORA authorization
+-> identity-bound, proof-bound execution enforcement
 
 ---
 
@@ -23,19 +23,29 @@ This package introduces the next step in CHORA x VEX alignment:
 
 ---
 
-## What this package introduces
+## What this package now introduces
 
-1. Execution Binding Contract v0.1  
-2. AEM Runtime Enforcement Spec v0.1  
-3. Full Run Simulation (ALLOW + DENY paths)  
-4. Review Notes for alignment  
+1. Execution Binding Contract v0.2
+2. AEM Runtime Enforcement Spec v0.2
+3. Full Run Simulation v0.2
+4. Review Notes v0.2
 
 ---
 
 ## Core invariant
 
-No valid signed continuation artifact  
--> No execution allowed  
+No valid signed continuation artifact for the specific attested agent instance
+-> No execution allowed
+
+---
+
+## Binding surface now includes
+
+- direct identity binding (`aid`)
+- `intent_hash`
+- `circuit_id`
+- capability-grant semantics
+- PCR binding for High Assurance
 
 ---
 
@@ -46,7 +56,11 @@ Before:
 
 Now:
 - ALLOW is not sufficient
-- Execution requires verified token binding at runtime
+- Execution requires a verified token bound to:
+  - the attested agent instance
+  - the computational promise
+  - the proof surface
+  - the granted capability scope
 
 ---
 
@@ -63,10 +77,10 @@ Now:
 
 Define the minimal, non-bypassable layer between:
 
-CHORA authorization -> VEX execution
+CHORA authorization -> local AEM verification -> capability grant -> VEX execution
 
 ---
 
 ## Status
 
-Proposed for alignment review with VEX
+Refined for alignment review with VEX

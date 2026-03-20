@@ -1,4 +1,4 @@
-# CHORA x VEX Full Run Simulation v0.1
+# CHORA x VEX Full Run Simulation v0.2
 
 Status: Draft
 Date: 2026-03-20
@@ -7,39 +7,54 @@ Date: 2026-03-20
 
 ## Purpose
 
-Demonstrate the end-to-end execution-binding flow from CHORA authorization to runtime enforcement.
+Demonstrate direct identity-bound, proof-bound, capability-scoped execution enforcement.
 
 ---
 
 ## ALLOW Path
 
-1. Agent proposes NETWORK_CALL
-2. MCS returns PASS
-3. CHORA Gate returns ALLOW
-4. Continuation token v3 is issued
-5. Runtime verifies:
+1. Agent finalizes attested intent
+2. Intent Merkle root becomes `intent_hash`
+3. Proof surface identified by `circuit_id`
+4. CHORA Gate returns ALLOW
+5. Continuation token issued with:
+   - aid
+   - intent_hash
+   - circuit_id
+   - action_class
+   - nonce / expiry
+6. AEM verifies:
    - signature valid
-   - binding valid
+   - aid matches local silicon identity
+   - PCR binding valid
+   - intent_hash matches
+   - circuit_id matches
    - nonce unused
    - token not expired
-6. Runtime issues short-lived capability
-7. Execution is permitted
-8. Evidence capsule is generated
-9. Ledger entry is recorded
+7. AEM issues fine-grained capability grant
+8. Runtime allows only granted operations
+9. Evidence capsule generated
+10. Ledger entry recorded
 
 Result:
 EXECUTED
 
 ---
 
-## DENY Path
+## DENY Path: circuit mismatch
 
-1. Agent proposes NETWORK_CALL
-2. MCS returns PASS
-3. CHORA Gate returns ALLOW
-4. Continuation token v3 is issued
-5. Runtime verification fails:
-   - action_class mismatch
+Token valid, but `circuit_id` mismatch
+
+Result:
+EXECUTION_DENIED
+
+Execution never begins.
+
+---
+
+## DENY Path: PCR mismatch
+
+Token valid, but PCR binding mismatch in High Assurance mode
 
 Result:
 EXECUTION_DENIED
@@ -52,13 +67,14 @@ Execution never begins.
 
 Execution requires:
 
-authorization + verification + binding
+authorization + identity binding + proof binding + capability grant
 
 ---
 
 ## What this demonstrates
 
 - No execution without token
-- No execution with invalid token
-- No execution on mismatched runtime context
+- No execution for the wrong attested instance
+- No execution for the wrong proof surface
+- No execution outside granted capabilities
 - No bypass path after enforcement is active

@@ -1,39 +1,43 @@
-# CHORA x VEX Review Notes v0.1
+# CHORA x VEX Review Notes v0.2
 
 Status: Draft
 Date: 2026-03-20
 
 ---
 
-## Not under review
+## Adopted refinements
 
-- Evidence Capsule v0.3
-- Token Contract v3
-- CHORA Gate decision model
-
----
-
-## Proposed for review
-
-- Execution binding layer
-- Runtime enforcement interface
-- Token -> execution dependency
+- direct identity binding (`aid`)
+- `intent_hash` binding
+- `circuit_id` binding
+- capability-grant semantics
+- PCR binding moved into contract
 
 ---
 
-## Main questions
+## Current model
 
-1. Is the binding surface sufficient?
-2. Is the insertion point correct in VEX?
-3. Should capability tokens be standardized across systems?
-4. Should ledger validation be runtime-mandatory?
-5. Should hardware identity remain deferred to v0.2?
+Attested Intent
+-> CHORA decision
+-> Signed continuation token
+-> Local AEM verification
+-> Capability grant
+-> Execution
+
+---
+
+## Remaining review focus
+
+1. Is the signed field set complete?
+2. Should capability grants be fully token-contained or runtime-derived?
+3. What is the minimal PCR binding set for High Assurance?
+4. Are there any additional replay surfaces beyond nonce + circuit_id?
 
 ---
 
 ## Goal
 
-Align CHORA authorization with VEX execution.
+Tighten the loop from ZK proof to silicon-enforced action.
 
 ---
 

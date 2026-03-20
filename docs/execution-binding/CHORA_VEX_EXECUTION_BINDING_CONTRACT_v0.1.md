@@ -1,13 +1,13 @@
-# CHORA x VEX Execution Binding Contract v0.1
+# CHORA x VEX Execution Binding Contract v0.2
 
-Status: Draft  
-Date: 2026-03-20  
+Status: Draft
+Date: 2026-03-20
 
 ---
 
 ## 1. Purpose
 
-Bind CHORA continuation tokens (v3) to runtime execution enforcement.
+Bind CHORA continuation tokens to runtime execution enforcement for a specific attested agent instance, a specific computational intent, and a specific proof/circuit surface.
 
 Execution becomes contingent on a valid, verified, and context-bound token.
 
@@ -15,8 +15,8 @@ Execution becomes contingent on a valid, verified, and context-bound token.
 
 ## 2. Invariant
 
-No valid signed continuation artifact  
--> No execution allowed  
+No valid signed continuation artifact for the specific attested agent instance
+-> No execution allowed
 
 ---
 
@@ -24,151 +24,160 @@ No valid signed continuation artifact
 
 This contract defines:
 
-- Token binding surface
-- Runtime verification requirements
-- Execution gating rules
-- Failure conditions
+- signed token binding surface
+- runtime verification requirements
+- capability-grant semantics
+- hardware identity binding
+- failure conditions
 
 ---
 
-## 4. Normative Rules
+## 4. Required signed binding surface
 
-### 4.1 Pre-execution requirement
+The continuation token MUST bind at minimum:
+
+- aid
+- request_sha256
+- intent_hash
+- circuit_id
+- action_class
+- policy_context_hash
+- nonce
+- exp
+
+---
+
+## 5. Normative rules
+
+### 5.1 Pre-execution requirement
 
 Execution MUST NOT begin without:
 
 - valid token
 - valid signature
 - valid binding match
+- valid identity match
+- valid capability grant
 
----
+### 5.2 Direct identity binding
 
-### 4.2 Binding surface (MUST match runtime)
+The token MUST bind directly to `aid`.
 
-- request_sha256  
-- action_class  
-- policy_context_hash  
-- identity  
-- nonce  
-- exp  
+The AEM MUST verify `aid` locally against the silicon root / attested runtime identity.
 
----
+### 5.3 Computational promise binding
 
-### 4.3 Signature
+The token MUST bind:
 
-- RFC 8785 JCS canonical payload  
-- Ed25519 signature  
-- raw UTF-8 canonical bytes  
+- `intent_hash`
+- `circuit_id`
 
----
+`intent_hash` locks the token to the exact computational promise.
 
-### 4.4 Fail-closed behavior
+`circuit_id` prevents replay of a token across different proof surfaces.
+
+### 5.4 Capability semantics
+
+The token/runtime grant MUST authorize specific capability types, not just generic execution.
+
+Execution MUST be limited to granted capabilities only.
+
+### 5.5 Hardware binding
+
+PCR binding is part of this contract for High Assurance enforcement.
+
+If High Assurance mode is active, PCR mismatch MUST deny execution.
+
+### 5.6 Fail-closed behavior
 
 Any mismatch -> execution denied
 
 ---
 
-### 4.5 Non-bypassability
+## 6. Execution model
 
-Verification MUST be:
-
-- synchronous  
-- blocking  
-- pre-execution  
-
----
-
-### 4.6 Token validity
-
-Invalid if:
-
-- expired  
-- replayed nonce  
-- mismatched context  
-- invalid signature  
-- unknown schema  
-
----
-
-## 5. Execution model
-
-Token != execution permission  
+Token != execution permission
 
 Execution permission is granted only after:
 
-verification -> capability issuance  
+verification -> capability issuance
 
 ---
 
-## 6. Capability requirement
+## 7. Capability grant model
 
-Runtime MUST issue:
+Runtime MUST issue a signed or integrity-protected internal capability grant authorizing specific actions.
 
-short-lived internal capability token  
+Examples:
+- FsRead("/logs")
+- NetConnect("api.exchange.example")
+- ToolInvoke("planner.read_only")
 
-Execution MUST depend on this capability.
+Capability grants MUST be fine-grained and non-bypassable at syscall / runtime boundary.
 
 ---
 
-## 7. Action classes (v0.1)
+## 8. Action classes
 
-- READ_ONLY  
-- FILE_MUTATION  
-- NETWORK_CALL  
-- TOOL_EXECUTION  
-- CODE_EXECUTION  
-- PUBLISH  
+- READ_ONLY
+- FILE_MUTATION
+- NETWORK_CALL
+- TOOL_EXECUTION
+- CODE_EXECUTION
+- PUBLISH
 
 Exact match required.
 
 ---
 
-## 8. Identity
+## 9. Identity and hardware
 
-Minimum:
+Minimum identity binding:
+- aid
 
-- aid  
-- identity_type  
-
-Mismatch -> deny
+High Assurance binding:
+- aid
+- PCR set / hardware measurement match
 
 ---
 
-## 9. Non-authorizing outcomes
+## 10. Non-authorizing outcomes
 
-- HALT -> no token  
-- ESCALATE -> no token  
+- HALT -> no token
+- ESCALATE -> no token
 
 Only ALLOW -> token issuance
 
 ---
 
-## 10. Failure codes
+## 11. Failure codes
 
-- TOKEN_INVALID  
-- TOKEN_EXPIRED  
-- TOKEN_SIGNATURE_INVALID  
-- TOKEN_MISMATCH  
-- TOKEN_REPLAY  
+- TOKEN_INVALID
+- TOKEN_EXPIRED
+- TOKEN_SIGNATURE_INVALID
+- TOKEN_MISMATCH
+- TOKEN_REPLAY
+- TOKEN_AID_MISMATCH
+- TOKEN_INTENT_HASH_MISMATCH
+- TOKEN_CIRCUIT_ID_MISMATCH
+- TOKEN_PCR_MISMATCH
+- TOKEN_CAPABILITY_DENIED
 
 ---
 
-## 11. Compliance
+## 12. Compliance
 
 DEV:
-- unbound identity  
+- local verification
+- relaxed hardware requirements
 
 CANONICAL:
-- full binding enforcement  
+- full token binding
+- direct aid binding
+- intent_hash + circuit_id verification
+- capability-grant enforcement
 
 HIGH ASSURANCE:
-- hardware identity  
-
----
-
-## 12. Deferred
-
-- multi-action tokens  
-- ZK binding  
-- quorum authorization  
-- hardware binding (mandatory)  
+- PCR binding enforced
+- local silicon-root identity verification
+- syscall-level non-bypassable capability enforcement
