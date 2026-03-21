@@ -84,3 +84,9 @@ CHORA authorization -> local AEM verification -> capability grant -> VEX executi
 ## Status
 
 Refined for alignment review with VEX
+
+---
+
+## Locked v1 Contract
+
+- CHORA_VEX_EXECUTION_BINDING_CONTRACT_v1.md
