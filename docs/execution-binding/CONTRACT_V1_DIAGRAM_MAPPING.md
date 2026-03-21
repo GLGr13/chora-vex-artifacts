@@ -14,7 +14,7 @@ No valid signed continuation artifact -> No execution allowed
 | Contract Layer        | Diagram Component                          | Enforcement Meaning |
 |----------------------|--------------------------------------------|--------------------|
 | Authorization        | CHORA Gate                                 | External continuation authority (ALLOW / HALT / ESCALATE) |
-| Enforcement          | Authorization Enforcement Module (AEM)     | Non-bypassable execution boundary (token required) |
+| Enforcement          | Authorization Enforcement Module (AEM)     | Non-bypassable execution boundary via verify_continuation_token (token required, intent-root binding enforced) |
 | Execution            | Execution                                  | Execution only proceeds if authorized |
 | Attestation          | VEX Ledger                                 | Governed execution event recorded |
 | Commitment           | Merkle Commitment                          | Deterministic capsule root |
