@@ -27,7 +27,7 @@ AEM:
 
 VEX:
 - Custody layer
-- Records governed execution → Merkle → external anchor
+- Records governed execution -> Merkle -> external anchor
 
 ---
 
