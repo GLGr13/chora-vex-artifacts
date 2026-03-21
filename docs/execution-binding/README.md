@@ -90,3 +90,9 @@ Refined for alignment review with VEX
 ## Locked v1 Contract
 
 - CHORA_VEX_EXECUTION_BINDING_CONTRACT_v1.md
+
+---
+
+## Contract v1 Diagram Mapping
+
+- CONTRACT_V1_DIAGRAM_MAPPING.md
