@@ -7,6 +7,15 @@ and the CHORA x VEX architecture diagram.
 
 No valid signed continuation artifact -> No execution allowed
 
+## Enforcement Boundary
+
+Enforcement is implemented at the runtime boundary via `verify_continuation_token`.
+
+This is the binding enforcement checkpoint where the intent_root check occurs.
+
+If `verify_continuation_token` fails, execution does not proceed.
+
+
 ---
 
 ## Mapping
