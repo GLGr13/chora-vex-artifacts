@@ -12,6 +12,20 @@ Enforcement is implemented at the runtime boundary via `verify_continuation_toke
 
 No valid authorization artifact -> No execution
 
+## Enforcement Boundary
+
+The system enforces continuation at a single minimal boundary:
+
+`verify_continuation_token`
+
+This function determines whether execution is allowed to proceed.
+
+- No valid token -> execution does not start
+- No fallback path exists
+- No internal override exists
+
+This is the enforcement surface.
+
 This changes the execution model from:
 
 model decides -> system executes
