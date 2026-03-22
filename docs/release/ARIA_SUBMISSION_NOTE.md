@@ -16,6 +16,14 @@ Enforcement is implemented at the runtime boundary via `verify_continuation_toke
 
 No valid authorization artifact -> No execution
 
+This changes the execution model from:
+
+model decides -> system executes
+
+to:
+
+model proposes -> external authority decides -> execution is conditionally allowed
+
 ## Architecture summary
 
 Intent -> CHORA Gate -> Authorization Token -> AEM Enforcement -> Execution -> VEX Ledger -> Merkle Commitment -> Public Anchor
