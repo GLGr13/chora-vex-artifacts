@@ -106,6 +106,22 @@ artifacts/reference-bundles/
 ### Public Keys
 artifacts/keys/
 
+### Canonical Runtime Snapshot — 2026-03-22
+artifacts/chora-gate-v0.3/runtime-2026-03-22/
+
+Contents:
+- chora-gate-v0.3_live_canonical_2026-03-22.tar.gz
+- LOCK_CHORA_RUNTIME_2026-03-22.md
+
+Snapshot SHA256:
+`df48168651b7a56603d447497384d644105bdd383f331be061ecf033a59b3c3e`
+
+This snapshot locks a fully operational CHORA Gate runtime with:
+- RFC 8785 JCS canonicalization (byte-consistent hashing)
+- MCS binding active (HALT / ESCALATE enforced)
+- EMS continuation token contract v3 active
+- Execution enforced via verify_continuation_token
+
 ## Verification
 
 A CHORA capsule can be independently verified using:
