@@ -1,4 +1,34 @@
-# CHORA — External Continuation Authority
+# CHORA x VEX Artifacts
+
+## Governed Execution
+
+This repository contains the public reference artifacts for the CHORA x VEX governed execution architecture.
+
+### Enforcement guarantee
+
+Enforcement is implemented at the runtime boundary via `verify_continuation_token`, which prevents execution unless a valid, signed continuation artifact is present.
+
+### Core invariant
+
+No valid authorization artifact -> No execution
+
+### Canonical execution-binding reference
+
+- `docs/execution-binding/CHORA_VEX_EXECUTION_BINDING_CONTRACT_v1.md`
+- `docs/execution-binding/CONTRACT_V1_DIAGRAM_MAPPING.md`
+
+### Canonical figures
+
+- `docs/figures/chora_execution_pipeline.png`
+- `docs/figures/chora_governed_loops.png`
+
+### Canonical tag
+
+`execution-binding-v1.0`
+
+---
+
+# CHORA - External Continuation Authority
 
 CHORA is a control-plane system that enforces **external authorization over execution**.
 
@@ -11,8 +41,8 @@ No system is allowed to continue without an explicit, verifiable decision.
 
 ## System Model
 
-Proposal → CHORA Gate → Execution
-                 ↓
+Proposal -> CHORA Gate -> Execution
+                 v
            Evidence Capsule
 
 - Systems propose actions
