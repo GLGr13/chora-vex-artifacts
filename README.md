@@ -12,6 +12,14 @@ Enforcement is implemented at the runtime boundary via `verify_continuation_toke
 
 No valid authorization artifact -> No execution
 
+This changes the execution model from:
+
+model decides -> system executes
+
+to:
+
+model proposes -> external authority decides -> execution is conditionally allowed
+
 ### Canonical execution-binding reference
 
 - `docs/execution-binding/CHORA_VEX_EXECUTION_BINDING_CONTRACT_v1.md`
