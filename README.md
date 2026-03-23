@@ -148,3 +148,7 @@ This script:
 ## Final Note
 
 This repository represents a live control-plane system exporting verifiable governance artifacts.
+
+## Runtime Contracts
+
+See [`docs/runtime-contracts-v1.md`](docs/runtime-contracts-v1.md) for the locked CHORA runtime governance contracts covering CHORA–VEX interop, EMS, and segmented execution.
