@@ -78,6 +78,10 @@ class NormalizedCapsule:
     iat: Optional[str]
     exp: Optional[str]
 
+    execution_target_aid: Optional[str]
+    execution_target_circuit_id: Optional[str]
+    execution_target_intent_hash: Optional[str]
+
 
 @dataclass
 class VerificationReport:
@@ -151,6 +155,9 @@ def load_handshake_capsule(path: str | Path) -> NormalizedCapsule:
         issuer=_safe_get(raw, "continuation_token", "payload", "issuer"),
         iat=_safe_get(raw, "continuation_token", "payload", "iat"),
         exp=_safe_get(raw, "continuation_token", "payload", "exp"),
+        execution_target_aid=_safe_get(raw, "continuation_token", "payload", "execution_target", "aid"),
+        execution_target_circuit_id=_safe_get(raw, "continuation_token", "payload", "execution_target", "circuit_id"),
+        execution_target_intent_hash=_safe_get(raw, "continuation_token", "payload", "execution_target", "intent_hash"),
     )
 
 
@@ -173,6 +180,9 @@ def validate_capsule_structure(capsule: NormalizedCapsule) -> ValidationResult:
         "continuation_token.payload.issuer": capsule.issuer,
         "continuation_token.payload.iat": capsule.iat,
         "continuation_token.payload.exp": capsule.exp,
+        "continuation_token.payload.execution_target.aid": capsule.execution_target_aid,
+        "continuation_token.payload.execution_target.circuit_id": capsule.execution_target_circuit_id,
+        "continuation_token.payload.execution_target.intent_hash": capsule.execution_target_intent_hash,
     }
 
     missing = [name for name, value in required_fields.items() if value in (None, "", {})]
@@ -209,7 +219,8 @@ def validate_capsule_structure(capsule: NormalizedCapsule) -> ValidationResult:
 
 def verify_commitment_binding(capsule: NormalizedCapsule) -> ValidationResult:
     """
-    Verify that the commitment hash in the capsule matches the one in public inputs.
+    Verify that the commitment hash in the capsule matches the one in public inputs
+    and that execution_target.intent_hash matches the same intent commitment.
     """
     if not capsule.commitment_hash or not capsule.public_inputs_commitment_hash:
         return ValidationResult(
@@ -223,11 +234,21 @@ def verify_commitment_binding(capsule: NormalizedCapsule) -> ValidationResult:
             message=(
                 "Commitment binding mismatch: "
                 f"intent_data.commitment_hash={capsule.commitment_hash} "
-                f"!= public_inputs.commitment_hash={capsule.public_inputs_commitment_hash}"
+                f"!= intent_data.public_inputs.commitment_hash={capsule.public_inputs_commitment_hash}"
             )
         )
 
-    return ValidationResult(ok=True, message="Commitment hashes match exactly")
+    if capsule.execution_target_intent_hash != capsule.commitment_hash:
+        return ValidationResult(
+            ok=False,
+            message=(
+                "Execution target binding mismatch: "
+                f"execution_target.intent_hash={capsule.execution_target_intent_hash} "
+                f"!= intent_data.commitment_hash={capsule.commitment_hash}"
+            )
+        )
+
+    return ValidationResult(ok=True, message="Commitment binding holds")
 
 
 # ----------------------------
