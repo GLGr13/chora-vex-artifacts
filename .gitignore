@@ -11,3 +11,7 @@ v1_shadow_intent_capsule 3.json
 real_capsule.json
 real_payload.json
 signed_token.json
+
+# Local Python environment
+.venv/
+__pycache__/
