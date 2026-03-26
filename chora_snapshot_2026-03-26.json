@@ -1,0 +1,27 @@
+{
+  "snapshot_name": "CHORA_V220_RUNTIME_ENFORCEMENT_v3.1_EXECUTION_BOUNDARY_LOCK_2026-03-26",
+  "date_utc": "2026-03-26",
+  "system": {
+    "os": "Ubuntu 24.04.4 LTS",
+    "kernel": "6.8.0-106-generic",
+    "provider": "Hetzner Cloud"
+  },
+  "chora_state": {
+    "architecture": "v220 LOCKED",
+    "token_contract": "v3.1 LOCKED",
+    "execution_boundary": "ENFORCED",
+    "fail_mode": "FAIL_CLOSED"
+  },
+  "verification_results": {
+    "invalid_capsule": "DENIED",
+    "expired_token": "DENIED",
+    "invalid_signature": "DENIED",
+    "valid_token": "AUTHORIZED",
+    "execution_with_valid_token": "EXECUTED"
+  },
+  "commit": {
+    "repo": "https://github.com/GLGr13/chora-vex-artifacts",
+    "commit_hash": "b7d0f33",
+    "message": "Add local runtime enforcement demo endpoint"
+  }
+}
