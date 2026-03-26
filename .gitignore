@@ -9,3 +9,14 @@ dist/
 build/
 *.egg-info/
 .DS_Store
+
+# Local secrets
+keys/
+
+# Local backup files
+*.before_*
+*.pre_*
+
+# Local local-only test artifacts
+test_allow_fresh.json
+v1_shadow_intent_capsule 3.json
