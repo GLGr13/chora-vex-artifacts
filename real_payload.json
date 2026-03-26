@@ -1,0 +1,10 @@
+{
+  "schema": "chora.continuation.token.v3",
+  "issuer": "chora-gate",
+  "iat": "2026-03-26T11:20:00Z",
+  "exp": "2026-03-26T12:30:00Z",
+  "ledger_event_id": "ledger-evt-001",
+  "resolution_event_id": "resolution-evt-001",
+  "source_capsule_root": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "nonce": "nonce-001"
+}
