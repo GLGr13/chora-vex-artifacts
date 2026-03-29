@@ -1,0 +1,14 @@
+{
+  "request_ref": "a3f5optional",
+  "nonce": "b9c1-unique",
+  "action": {
+    "class": "execution_step",
+    "payload_hash": "73a84b"
+  },
+  "execution_target": {
+    "aid": "0xabc123",
+    "circuit_id": "agent-1",
+    "intent_hash": "91d2f"
+  },
+  "context": {}
+}
