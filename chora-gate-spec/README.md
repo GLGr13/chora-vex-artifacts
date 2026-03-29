@@ -1,3 +1,21 @@
+## What CHORA Is
+
+CHORA is a control-plane primitive for governed execution.
+
+It enforces a non-bypassable boundary between:
+- reasoning (proposal)
+- execution (action)
+
+Continuation is not assumed.
+
+Continuation must be explicitly authorized.
+
+---
+
+## One-Line Invariant
+
+Execution is prevented unless a valid, signed, time-valid, context-bound continuation artifact is present.
+
 # CHORA Gate Specification
 
 External Continuation Authority for Governed Execution
@@ -77,3 +95,11 @@ CHORA does not improve reasoning.
 It enforces whether execution is allowed.
 
 This is a control-plane primitive, not a model capability.
+
+---
+
+## Enforcement
+
+Enforcement is implemented at the runtime boundary via `verify_continuation_token`.
+
+Execution is prevented unless a valid, signed, time-valid continuation artifact is present and bound to the intended execution target and intent context.
